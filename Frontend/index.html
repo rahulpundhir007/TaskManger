@@ -1,36 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Task Manager</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Manage Your Life</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Task Manager</h1>
-  </header>
 
-  <main class="container">
-    <section class="panel">
-      <h2>Add New Task</h2>
-      <form id="taskForm" class="form">
-        <input type="text" id="title" placeholder="Task title..." required />
-        <button type="submit">Add</button>
-      </form>
-      <div class="hint">Tip: double-click a task to toggle complete. Click trash to delete.</div>
+    <section id="landingPage" class="landing-container">
+        <nav class="landing-nav">
+            <div class="logo-large">
+                <i class="fa-solid fa-layer-group"></i> TaskFlow
+            </div>
+            <button class="btn-login" onclick="handleLogin()">Login</button>
+        </nav>
+
+        <div class="hero-section">
+            <div class="hero-content">
+                <h1>Organize your work <br> <span class="gradient-text">amplify your life.</span></h1>
+                <p>The stunningly simple task manager built for students and professionals. Track tasks, hit deadlines, and stay calm.</p>
+                <button class="btn-cta" onclick="handleLogin()">Get Started for Free <i class="fa-solid fa-arrow-right"></i></button>
+                
+                <div class="stats-row">
+                    <div class="stat-pill"><i class="fa-solid fa-users"></i> 10k+ Users</div>
+                    <div class="stat-pill"><i class="fa-solid fa-star"></i> 4.9/5 Rating</div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="glass-card float-animation">
+                    <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+                    <div>
+                        <h4>Complete Project</h4>
+                        <div class="progress-bar"><div class="fill"></div></div>
+                    </div>
+                </div>
+                <div class="glass-card card-2 float-animation-delay">
+                    <div class="check-icon icon-blue"><i class="fa-solid fa-calendar"></i></div>
+                    <div>
+                        <h4>Meeting at 10am</h4>
+                        <p>Team Sync</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <section class="panel">
-      <h2>Your Tasks</h2>
-      <ul id="tasks" class="tasks"></ul>
+    <section id="appDashboard" class="dashboard-container hidden">
+        
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>TaskFlow</span>
+            </div>
+
+            <ul class="nav-links">
+                <li class="nav-item active" onclick="switchView('dashboard', this)">
+                    <i class="fa-solid fa-border-all"></i> Dashboard
+                </li>
+                <li class="nav-item" onclick="switchView('all-tasks', this)">
+                    <i class="fa-solid fa-list-check"></i> All Tasks
+                </li>
+                <li class="nav-item" onclick="switchView('completed', this)">
+                    <i class="fa-solid fa-check-double"></i> Completed
+                </li>
+                <li class="nav-item" onclick="switchView('settings', this)">
+                    <i class="fa-solid fa-gear"></i> Settings
+                </li>
+            </ul>
+
+            <div class="user-profile">
+                <div class="avatar">RP</div>
+                <div class="user-info">
+                    <h4>Rahul Pundhir</h4>
+                    <p>Free Plan</p>
+                </div>
+                <div onclick="handleLogout()" style="margin-left:auto; cursor:pointer; color: #94a3b8;"><i class="fa-solid fa-right-from-bracket"></i></div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <header class="header">
+                <div>
+                    <h1 id="pageTitle">Dashboard</h1>
+                    <p class="date-display" id="currentDate">...</p>
+                </div>
+            </header>
+
+            <div id="view-dashboard" class="view-section">
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon icon-blue"><i class="fa-solid fa-clipboard-list"></i></div>
+                        <h3 id="totalTasks">0</h3><p>Total Tasks</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon icon-orange"><i class="fa-regular fa-clock"></i></div>
+                        <h3 id="pendingTasks">0</h3><p>Pending</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon icon-green"><i class="fa-solid fa-check"></i></div>
+                        <h3 id="completedTasks">0</h3><p>Completed</p>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="tasks-section">
+                        <div class="task-input-card">
+                            <h3 style="margin-bottom: 15px;">Add New Task</h3>
+                            <div class="task-input-wrapper">
+                                <input type="text" id="taskInput" placeholder="What needs to be done?">
+                                <button class="add-btn" onclick="addTask()">Add Task</button>
+                            </div>
+                        </div>
+                        
+                        <div class="tasks-header">
+                            <h3>Recent Tasks</h3>
+                        </div>
+                        <div class="task-list" id="dashboardTaskList"></div>
+                    </div>
+
+                    <div class="widgets-section">
+                        <div class="pro-tip-card">
+                            <i class="fa-solid fa-rocket"></i>
+                            <h4>Pro Tip</h4>
+                            <p>Double-check your tasks before marking them as complete!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="view-all-tasks" class="view-section hidden">
+                <div class="task-input-card">
+                    <div class="task-input-wrapper">
+                        <input type="text" id="taskInputMain" placeholder="Add a task quickly...">
+                        <button class="add-btn" onclick="addTaskMain()">Add</button>
+                    </div>
+                </div>
+                <div class="task-list" id="mainTaskList"></div>
+            </div>
+
+            <div id="view-completed" class="view-section hidden">
+                <div class="empty-state" style="text-align: left; padding: 0; margin-bottom: 20px;">
+                    <p>History of your accomplishments.</p>
+                </div>
+                <div class="task-list" id="completedTaskList"></div>
+            </div>
+
+            <div id="view-settings" class="view-section hidden">
+                <div class="settings-card">
+                    <h3>Account Settings</h3>
+                    <div class="setting-item">
+                        <label>Display Name</label>
+                        <input type="text" value="Rahul Pundhir" disabled>
+                    </div>
+                    <div class="setting-item">
+                        <label>Email</label>
+                        <input type="text" value="rahul.pundhir@gla.ac.in" disabled>
+                    </div>
+                    <button class="btn-cta" style="margin-top: 20px;" onclick="handleLogout()">Log Out</button>
+                </div>
+            </div>
+
+        </main>
     </section>
-  </main>
 
-  <footer>
-    <small>© 2025 Task Manager</small>
-  </footer>
-
-  <script src="app.js"></script>
+    <script src="App.js"></script>
 </body>
 </html>

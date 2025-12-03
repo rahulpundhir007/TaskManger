@@ -6,15 +6,22 @@ const cors = require('cors');
 
 const tasksRouter = require('./routes/tasks');
 
+
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 // Serve frontend (public folder)
-app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use(express.static(path.join(__dirname, '..', 'Frontend')));
+
 
 // API routes
 app.use('/api/tasks', tasksRouter);
+// Fallback route to serve frontend
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'Frontend', 'index.html'));
+});
+
 
 // Global error handler
 app.use((err, req, res, next) => {
