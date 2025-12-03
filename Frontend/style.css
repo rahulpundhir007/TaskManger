@@ -1,0 +1,15 @@
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,Helvetica,sans-serif}
+body{display:flex;flex-direction:column;min-height:100vh;background:#f3f4f6}
+header,footer{background:#111;color:#fff;padding:12px 16px;text-align:center}
+.container{display:grid;grid-template-columns:1fr 1fr;gap:20px;padding:24px;flex:1}
+.panel{background:#fff;padding:18px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+.form{display:flex;gap:8px;margin-bottom:8px}
+.form input{flex:1;padding:8px;border:1px solid #ddd;border-radius:6px}
+.form button{padding:8px 12px;border-radius:6px;border:none;background:#0b5ed7;color:#fff;cursor:pointer}
+.tasks{list-style:none;margin-top:12px}
+.tasks li{display:flex;justify-content:space-between;align-items:center;padding:10px;border:1px solid #eee;border-radius:6px;margin-bottom:8px;cursor:pointer}
+.tasks li.completed{background:#e6ffe6;text-decoration:line-through;color:#4b854b;opacity:0.9}
+.task-actions{display:flex;gap:8px;align-items:center}
+.btn{border:none;background:transparent;cursor:pointer;font-size:16px}
+.hint{font-size:12px;color:#777;margin-top:8px}
+@media(max-width:800px){.container{grid-template-columns:1fr;padding:12px}}

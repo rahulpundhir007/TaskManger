@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Task Manager</h1>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2>Add New Task</h2>
+      <form id="taskForm" class="form">
+        <input type="text" id="title" placeholder="Task title..." required />
+        <button type="submit">Add</button>
+      </form>
+      <div class="hint">Tip: double-click a task to toggle complete. Click trash to delete.</div>
+    </section>
+
+    <section class="panel">
+      <h2>Your Tasks</h2>
+      <ul id="tasks" class="tasks"></ul>
+    </section>
+  </main>
+
+  <footer>
+    <small>© 2025 Task Manager</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
